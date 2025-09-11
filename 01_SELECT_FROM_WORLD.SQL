@@ -33,3 +33,45 @@ select name, population, area from world where area >= 3000000 or population >= 
 /* 
     Pregunta 8: One or the other (but not both)
 */
+select name, population, area from world where area >= 3000000 xor population >= 250000000;
+/*
+    Pregunta 9: Dos decimales en la Cantidad de Poblacion y GDP en Sudamerica
+*/
+select name, ROUND(population/1000000.0,2), ROUND(gdp/1000000000.0,2)
+from world
+where continent ='South America'
+;
+/*
+    Pregunta 10: El PIB per cápita de los países con un billón de dólares, redondeado al millar de dólares más cercano
+*/
+SELECT
+    name,
+    ROUND(gdp / population, -3) AS per_capita_gdp
+FROM
+    world
+WHERE 
+    gdp >= 1000000000000;
+/*
+    Pregunta 11: Mostrar el nombre y la mayúscula donde el nombre y la mayúscula tienen el mismo número de caracteres
+*/
+SELECT name, capital
+from world
+where length(name) = length(capital);
+/*
+    Pregunta 12: Muestra el nombre y la capital donde las primeras letras de cada palabra coinciden. No incluyas países donde el nombre y la capital son la misma palabra.
+*/
+SELECT name, capital
+FROM world
+WHERE LEFT(name, 1) = LEFT(capital, 1)
+    AND name <> capital;
+/*
+    Pregunta 13: Encuentra el país que tiene todas las vocales y ningún espacio en su nombre
+*/
+SELECT name
+FROM world
+WHERE name LIKE '%a%'
+    AND name LIKE '%e%'
+    AND name LIKE '%i%'
+    AND name LIKE '%o%'
+    AND name LIKE '%u%'
+    AND name NOT LIKE '% %';
